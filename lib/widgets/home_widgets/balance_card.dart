@@ -13,17 +13,8 @@ class BalanceCard extends StatelessWidget {
       height: 150,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 18, 17, 17),
+        color: const Color(0xff121212),
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[900]!,
-            offset: const Offset(-5, 4),
-            blurRadius: 4,
-            blurStyle: BlurStyle.inner,
-            spreadRadius: 0.4,
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
