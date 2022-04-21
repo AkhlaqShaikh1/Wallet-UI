@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet_ui/pages/main_page.dart';
 import 'package:wallet_ui/pages/wallet_page.dart';
-import 'package:wallet_ui/widgets/home_widgets/my_bottom_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     const MainPage(),
-    const WalletPage(),
+    WalletPage(),
   ];
   @override
   Widget build(BuildContext context) {
