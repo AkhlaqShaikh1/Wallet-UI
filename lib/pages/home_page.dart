@@ -1,69 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wallet_ui/pages/main_page.dart';
+import 'package:wallet_ui/pages/wallet_page.dart';
+import 'package:wallet_ui/widgets/home_widgets/my_bottom_nav_bar.dart';
 
-import '../widgets/home_widgets/action_card.dart';
-import '../widgets/home_widgets/balance_card.dart';
-import '../widgets/home_widgets/home_app_bar.dart';
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int pageIndex = 0;
+  Color selectedColor = Colors.orange;
+  Color unselectedColor = Colors.white;
+
+  List pages = [
+    const MainPage(),
+    const WalletPage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff0b0b0c),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MyAppBar(),
-              const SizedBox(height: 30),
-              const BalanceCard(),
-              const SizedBox(height: 30),
-              Text(
-                "Actions",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
-                ),
-              ),
-              const SizedBox(height: 20),
-              _buildActionCards(),
-            ],
+      body: pages[pageIndex],
+      bottomNavigationBar: _buildBottomNavBar(),
+    );
+  }
+
+  Container _buildBottomNavBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      width: double.infinity,
+      height: 80,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                pageIndex = 0;
+              });
+            },
+            child: _buildIcon("house", "Home", 0),
           ),
-        ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                pageIndex = 1;
+                // Navigator.pushNamed(context, "/wallet");
+              });
+            },
+            child: _buildIcon("wallet", "Wallet", 1),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 15),
+            alignment: Alignment.center,
+            height: 80,
+            width: 50,
+            decoration: BoxDecoration(
+              color: Colors.indigoAccent.shade700,
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: Image.asset(
+              "assets/icons/double-arrow.png",
+              height: 20,
+              color: Colors.white,
+            ),
+          ),
+          _buildIcon("trending", "Market", 2),
+          _buildIcon("setting", "Setting", 3),
+        ],
       ),
     );
   }
 
-  _buildActionCards() {
-    return Wrap(
-      spacing: 5,
-      runSpacing: 15,
+  Column _buildIcon(String imgSrc, String title, index) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ActionCard(
-          title: "Recieve",
-          color: Colors.yellow[100]!,
-          imgSrc: "assets/icons/bitcoin.png",
+        Image.asset(
+          "assets/icons/$imgSrc.png",
+          color: index == pageIndex ? selectedColor : unselectedColor,
+          height: 20,
         ),
-        const SizedBox(width: 10),
-        ActionCard(
-          title: "Send",
-          color: Colors.orange[500]!,
-          imgSrc: "assets/icons/credit.png",
-        ),
-        ActionCard(
-          title: "Swap",
-          color: Colors.purple[100]!,
-          imgSrc: "assets/icons/exchange.png",
-        ),
-        const SizedBox(width: 10),
-        ActionCard(
-          title: "Earn",
-          color: Colors.purple[300]!,
-          imgSrc: "assets/icons/earn.png",
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(title),
         ),
       ],
     );

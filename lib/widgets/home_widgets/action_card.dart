@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ActionCard extends StatelessWidget {
   const ActionCard({
@@ -30,10 +31,11 @@ class ActionCard extends StatelessWidget {
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
+                      fontFamily: GoogleFonts.spaceGrotesk().fontFamily,
                     ),
                   ),
                 ),
